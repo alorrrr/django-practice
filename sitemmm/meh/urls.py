@@ -19,4 +19,5 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="meh-home"),
+    path('books', views.books, name="meh-books"),
 ]
