@@ -12,7 +12,7 @@
                     <a class="mr-2" href="{% url 'author-detail' book.author_url %}">{{ book.author }}</a>
                     <small class="text-muted">{{ book.year }}</small>
                 </div>
-                <h2><a class="article-title">{{ book.title }}</a></h2>
+                <h2><a class="article-title" href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h2>
                 <p class="article-content">{{ book.about }}</p>
                 <a class="mr-2" href="{% url 'user-books' book.username %}">{{ book.username }}</a>
             </div>
