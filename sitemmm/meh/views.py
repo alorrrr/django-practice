@@ -1,6 +1,13 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import (
+    ListView, 
+    DetailView, 
+    CreateView, 
+    UpdateView,
+    DeleteView
+)
+from django.urls import reverse
 from .models import Book
 
 
@@ -41,10 +48,30 @@ class BookCreateView(LoginRequiredMixin, CreateView):
         form.instance.username = self.request.user
         return super().form_valid(form)
 
-class BookUpdateView(LoginRequiredMixin, UpdateView):
+class BookUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Book
     fields = ['title', 'author', 'year', 'about']
 
     def form_valid(self, form):
         form.instance.username = self.request.user
         return super().form_valid(form)
+    
+    def test_func(self):
+        book = self.get_object()
+        if self.request.user == book.username:
+            return True
+        return False
+
+class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Book
+
+    def get_success_url(self):
+        book = self.get_object()
+        return reverse('user-books', args=[book.username.username])
+
+    def test_func(self):
+        book = self.get_object()
+        if self.request.user == book.username:
+            return True
+        return False
+    

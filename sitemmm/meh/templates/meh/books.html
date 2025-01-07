@@ -11,6 +11,14 @@
                 <div class="article-metadata">
                     <a class="mr-2" href="{% url 'author-detail' book.author_url %}">{{ book.author }}</a>
                     <small class="text-muted">{{ book.year }}</small>
+                    {% if book.username == user %}
+                        <a class="icon-btn" href="{% url 'book-update' book.id%}" title="Edit Book">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a class="icon-btn" href="{% url 'book-delete' book.id%}" title="Delete Book">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    {% endif %}
                 </div>
                 <h2><a class="article-title" href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h2>
                 <p class="article-content">{{ book.about }}</p>

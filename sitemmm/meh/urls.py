@@ -5,7 +5,8 @@ from .views import (
     AuthorListView, 
     UserListView, 
     BookCreateView,
-    BookUpdateView
+    BookUpdateView,
+    BookDeleteView
 )
 from . import views
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path('books/new/', BookCreateView.as_view(), name="create-book"),
     path('books/<int:pk>/', BookDetailView.as_view(), name="book-detail"),
     path('books/<int:pk>/update', BookUpdateView.as_view(), name="book-update"),
+    path('books/<int:pk>/delete', BookDeleteView.as_view(), name="book-delete"),
 ]

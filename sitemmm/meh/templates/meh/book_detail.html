@@ -1,6 +1,6 @@
 {% extends "meh/base.html" %}
 {% block title %}
-    <title>object.title</title>
+    <title>{{ object.title }}</title>
 {% endblock title %}
 {% block content %}
     <article class="media content-section">
@@ -9,6 +9,14 @@
             <div class="article-metadata">
                 <a class="mr-2" href="{% url 'author-detail' object.author_url %}">{{ object.author }}</a>
                 <small class="text-muted">{{ object.year }}</small>
+                {% if object.username == user %}
+                    <a class="icon-btn" href="{% url 'book-update' object.id%}" title="Edit Book">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <a class="icon-btn" href="{% url 'book-delete' object.id%}" title="Delete Book">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                 {% endif %}
             </div>
             <h2><a class="article-title" href="{% url 'book-detail' object.id %}">{{ object.title }}</a></h2>
             <p class="article-content">{{ object.about }}</p>
