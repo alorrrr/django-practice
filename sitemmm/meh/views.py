@@ -16,7 +16,9 @@ class BookListView(ListView):
     template_name = "meh/books.html"
     context_object_name = 'books'
     ordering = ['-id']
+    paginate_by = 5
 
+    
 class BookDetailView(DetailView):
     model = Book
 
